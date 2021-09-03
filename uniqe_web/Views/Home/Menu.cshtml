@@ -1,0 +1,90 @@
+﻿@using System.Data
+@{
+    ViewBag.Title = "Menu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+
+    <!-- Button trigger modal -->
+    <button id="btnAddDishModal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="visibility:hidden;">
+        הוספת מנה
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">הוספת מנה</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="formDetails" action="@Url.Action("AddDish", "Home")" method="post">
+                        <label> שם מנה:</label><br>
+                        <input type="text" id="nameDish" name="NameDish" placeholder="הקלד שם מנה"><br>
+                        <label> מחיר מנה:</label><br>
+                        <input type="number" id="priceDish" name="PriceDish"><br>
+                        <label> האם מכיל חומרים אלרגנים:</label><br>
+                        <input type="checkbox" id="allergyDish" name="AllergyDish"><br>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">סגור</button>
+                    <button type="submit" form="formDetails" class="btn btn-primary">שמור</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">עריכת מנה</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="formDetailsEdit" action="@Url.Action("EditDish", "Home")" method="post">
+                        <label> שם מנה:</label><br>
+                        <input type="text" id="nameDish" name="NameDish" placeholder="הקלד שם מנה"><br>
+                        <label> מחיר מנה:</label><br>
+                        <input type="number" id="priceDish" name="PriceDish"><br>
+                        <label> האם מכיל חומרים אלרגנים:</label><br>
+                        <input type="checkbox" id="allergyDish" name="AllergyDish"><br>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" form="formDetailsEdit" class="btn btn-primary" onclick="ShowDishes(1, false)">שמור</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Example single danger button -->
+    <div class="btn-group">
+        <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            לבחירתך מספר קטגוריות
+        </button>
+        <div class="dropdown-menu">
+            @foreach (DataRow row in Model.ListCategories.Rows)
+            {
+                <button onclick="clickOnCategory(@row["CATEGORY_ID"],@Model.IsAdmin);"> @row["CATEGORY_NAME"]</button>
+            }
+        </div>
+    </div>
+    <br />
+    <div>
+        <label>הצגת מנות ללא אלרגנים</label>
+        <input id="cbIsAllergy" type="checkbox" />
+    </div>
+    <table id="table1">
+        <thead></thead>
+    </table>
+
+</div>

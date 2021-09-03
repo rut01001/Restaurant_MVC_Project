@@ -1,0 +1,14 @@
+﻿@{
+    ViewBag.Title = "Restaurant home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="WrapperDiv">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link" href=Home/Menu onclick="return isAdmin(true)">כניסת מנהל</a>
+                <a class="nav-item nav-link" href=Home/Menu onclick="return isAdmin(false)">כניסת לקוח</a>
+            </div>
+        </div>
+    </nav>
+</div>

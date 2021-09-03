@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DalInfraContracts\DalInfraContracts.csproj" />
+    <ProjectReference Include="..\RestaurantContracts\RestaurantContracts.csproj" />
+    <ProjectReference Include="..\SQLInfraDAL\SQLInfraDAL.csproj" />
+  </ItemGroup>
+
+</Project>
