@@ -2,13 +2,7 @@
 
 //});
 
-function HH(categoryId, IsAdmin, dishId, priceDish, isAllergyDish, nameDish) {
 
-    alert('HIII');
-    editDish(dishId, priceDish, isAllergyDish, nameDish);
-    alert('BBYY');
-    //ShowDishes(categoryId, IsAdmin);
-}
 
 function ShowDishes(numCategory, IsAdmin, IsShowDishesAllergy = true) {
 
@@ -18,8 +12,6 @@ function ShowDishes(numCategory, IsAdmin, IsShowDishesAllergy = true) {
         type: "POST",
         url: '/Home/GetDetailsDishesForCategory',
         data: { keyCategory: numCategory, IsAllergy: IsShowDishesAllergy },
-        //dataType: "json",
-        //contentType: "application/json; charset=utf-8",
         success: function (data) {
             if (data != null && data.result != null) {
 
@@ -99,8 +91,6 @@ function deleteDish(dishId) {
         type: "POST",
         url: '/Home/deleteDish',
         data: { idDish: dishId },
-        //dataType: "json",
-        //contentType: "application/json; charset=utf-8",
         success: function () {
 
         },
@@ -116,8 +106,6 @@ function _isAdmin(adminOrCustomer) {
         type: "POST",
         url: '/Home/saveStatusOfUser',
         data: { statusOfUser: adminOrCustomer },
-        //dataType: "json",
-        //contentType: "application/json; charset=utf-8",
         success: function () {
 
         },
@@ -133,8 +121,6 @@ function editDish(dishId, priceDish, isAllergyDish, nameDish) {
         type: "POST",
         url: '/Home/SaveDishId',
         data: { DishId: dishId },
-        //dataType: "json",
-        //contentType: "application/json; charset=utf-8",
         success: function () {
             
         },
@@ -156,8 +142,6 @@ $("#formDetailsEdit").submit(() => {
         type: "POST",
         url: '/Home/EditDish',
          data: $('#formDetailsEdit').serialize(),
-        //dataType: "json",
-        //contentType: "application/json; charset=utf-8",
         success: function () {
             $('#ModalEdit').modal('hide');
             let id = $(".colCategoryId")[0].innerText;
@@ -175,8 +159,6 @@ $("#formDetails").submit(() => {
         type: "POST",
         url: '/Home/AddDish',
         data: $('#formDetails').serialize(),
-        //dataType: "json",
-        //contentType: "application/json; charset=utf-8",
         success: function () {
             $('#exampleModal').modal('hide');
             $('#formDetails')[0].reset();

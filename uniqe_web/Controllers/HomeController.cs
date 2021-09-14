@@ -38,8 +38,6 @@ namespace uniqe_web.Controllers
                 modelData.ListCategories = ds.Tables[0];
             }
             modelData.IsAdmin = userService.IsAdmin.ToString().ToLower();
-            //modelData.NameDish = "עגבניותממממ";// (string)TempData["NameDish"];
-
             return View("Menu", modelData);
         }
         public IActionResult Privacy()
@@ -78,7 +76,6 @@ namespace uniqe_web.Controllers
         [HttpPost]
         public ActionResult EditDish(string NameDish, float PriceDish, string AllergyDish)
         {
-            //string dishId = (string)TempData["DishId"];
             string dishId = HttpContext.Session.GetString("DishId");
             bool isAllergy = false;
             if (AllergyDish == "on")
@@ -95,7 +92,6 @@ namespace uniqe_web.Controllers
         [HttpPost]
         public ActionResult SaveDishId(string DishId)
         {
-            //TempData["DishId"] = DishId;
             HttpContext.Session.SetString("DishId", DishId);
             return RedirectToAction("Menu");
         }

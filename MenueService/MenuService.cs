@@ -18,10 +18,7 @@ namespace MenueService
 
         public DataSet GetCategories()
         {
-            ///todo
-            // DAL dal = new DAL();
-            //return dal.ExecuteQuery("GET_CATEGORIES");
-            // return new DAL().ExecuteQuery("GET_CATEGORIES");
+            
 
             return dal.ExecuteQuery("GET_CATEGORIES");
         }

@@ -10,7 +10,6 @@ namespace SQLInfraDAL
         string _connetionString; 
         public DAL()
         {
-            //_connetionString = connectionString;
             _connetionString = "Server = DESKTOP-187JH0I\\SQLEXPRESS; Database = RestaurantDB; Trusted_Connection = True;";
 
         }
