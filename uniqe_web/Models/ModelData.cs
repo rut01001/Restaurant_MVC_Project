@@ -10,5 +10,6 @@ namespace uniqe_web.Models
     {
         public DataTable ListCategories { get; set; }
         public string IsAdmin { get; set; }
+        public string NameDish { get; set; }
     }
 }

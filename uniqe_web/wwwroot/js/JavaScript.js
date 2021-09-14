@@ -2,7 +2,17 @@
 
 //});
 
+function HH(categoryId, IsAdmin, dishId, priceDish, isAllergyDish, nameDish) {
+
+    alert('HIII');
+    editDish(dishId, priceDish, isAllergyDish, nameDish);
+    alert('BBYY');
+    //ShowDishes(categoryId, IsAdmin);
+}
+
 function ShowDishes(numCategory, IsAdmin, IsShowDishesAllergy = true) {
+
+
     categoryId = numCategory;
     $.ajax({
         type: "POST",
@@ -55,9 +65,13 @@ function LoadData(data, IsAdmin) {
         });
         if (IsAdmin) {
             var dishId = tr[0].querySelector('.colDishId').outerText;
+            var nameDish = tr[0].querySelector('td:nth-child(3)').textContent;
+            var priceDish = tr[0].querySelector('td:nth-child(4)').textContent;
+            var isAllergyDish = tr[0].querySelector('.cbAllergy') != null ? tr[0].querySelector('.cbAllergy').checked : false;
             var categoryId = tr[0].querySelector('.colCategoryId').outerText;
-            tr.append('<td><input type="button" class="btnDeleteDish" value="מחיקה" onclick="deleteDish(' + dishId + ');ShowDishes(' + categoryId + "," + IsAdmin + ');"/></td>')
-            tr.append('<td><input type="button" class="btnDeleteDish" value="עריכה" onclick="editDish(' + dishId + ');ShowDishes(' + categoryId + "," + IsAdmin + ');"/></td>')
+            tr.append('<td><input type="button" class="btnDeleteDish" value="מחיקה" onclick="deleteDish(' + dishId + ');ShowDishes(' + categoryId + "," + IsAdmin + ');"/></td>');
+            tr.append('<td><input type="button" class="btnDeleteDish" value="עריכה" onclick="editDish('+ dishId + ',' + priceDish + ',' + isAllergyDish + ',' + "'" + nameDish + "'" + ');"/></td>');
+            /*tr.append('<td><input type="button" class="btnDeleteDish" value="עריכה" onclick="editDish(' + dishId + ',' + priceDish + ',' + isAllergyDish + ',' + "'" + nameDish + "'" + '); ShowDishes2(' + categoryId + "," + IsAdmin + ');"/></td>');*/
         }
         tr.appendTo(tbody);
     });
@@ -65,7 +79,7 @@ function LoadData(data, IsAdmin) {
         $('#table1 tbody')[0].outerHTML = "";
     tbody.appendTo("#table1");
     $('.cbAllergy').parent().parent().css("background-color", "red");
-    
+
 }
 function DeleteLastTable() {
     if ($('#table1 tbody') != undefined && $('#table1 tbody').length > 0) {
@@ -74,14 +88,8 @@ function DeleteLastTable() {
 }
 function clickOnCategory(numCategory, IsAdmin) {
     DeleteLastTable();
-    if ($('#cbIsAllergy').is(':checked')) {
-        /*הצגת מנות ללא אלרגנים*/
-        ShowDishes(numCategory, IsAdmin, false);
-    }
-    else {
-        /*כל  המנות*/
-        ShowDishes(numCategory, IsAdmin, true);
-    }
+    ShowDishes(numCategory, IsAdmin, !$('#cbIsAllergy').is(':checked'));
+   
     if (IsAdmin)
         $('#btnAddDishModal').css('visibility', 'visible');
 }
@@ -103,7 +111,7 @@ function deleteDish(dishId) {
 
 
 }
-function isAdmin(adminOrCustomer) {
+function _isAdmin(adminOrCustomer) {
     $.ajax({
         type: "POST",
         url: '/Home/saveStatusOfUser',
@@ -119,8 +127,8 @@ function isAdmin(adminOrCustomer) {
     });
 
 }
-function editDish(dishId) {
-    
+function editDish(dishId, priceDish, isAllergyDish, nameDish) {
+
     $.ajax({
         type: "POST",
         url: '/Home/SaveDishId',
@@ -128,12 +136,56 @@ function editDish(dishId) {
         //dataType: "json",
         //contentType: "application/json; charset=utf-8",
         success: function () {
-
+            
         },
         error: function (error) {
-            alert("Error" + error);
+            alert("Error Save Dish:" + error);
         }
     });
+
+
+    $('#nameDishEdit').val(nameDish);
+    $('#priceDishEdit').val(priceDish);
+    $("#allergyDishEdit").prop("checked", isAllergyDish);
     $('#ModalEdit').modal('show');
 
 }
+
+$("#formDetailsEdit").submit(() => {
+     $.ajax({
+        type: "POST",
+        url: '/Home/EditDish',
+         data: $('#formDetailsEdit').serialize(),
+        //dataType: "json",
+        //contentType: "application/json; charset=utf-8",
+        success: function () {
+            $('#ModalEdit').modal('hide');
+            let id = $(".colCategoryId")[0].innerText;
+            ShowDishes(id, true);
+        },
+        error: function (error) {
+            alert("Error Edit Dish:" + error);
+        }
+    });
+    return false;
+});
+
+$("#formDetails").submit(() => {
+    $.ajax({
+        type: "POST",
+        url: '/Home/AddDish',
+        data: $('#formDetails').serialize(),
+        //dataType: "json",
+        //contentType: "application/json; charset=utf-8",
+        success: function () {
+            $('#exampleModal').modal('hide');
+            $('#formDetails')[0].reset();
+            let id = $(".colCategoryId")[0].innerText;
+            ShowDishes(id, true);
+        },
+        error: function (error) {
+            alert("Error Add Dish:" + error);
+        }
+    });
+    return false;
+});

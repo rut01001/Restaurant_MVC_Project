@@ -33,11 +33,14 @@ namespace MenueService
         /// <returns>טבלה עם נתונים של הקטגוריה</returns>
         public DataSet GetDishesCategory(int CategoryId, bool IsAllergy)
         {
-            //todo
-            // DAL dalr = new DAL();
             var paramCategoryId = dal.CreateParameter("CATEGORY_ID", CategoryId.ToString());
             var paramIsAllergy = dal.CreateParameter("IsAllergy", IsAllergy);
             return dal.ExecuteQuery("GET_DISHES_FOR_CATEGORY", paramCategoryId,paramIsAllergy);
+        }
+        public DataSet GetDetailsOfDish(string DishId)
+        {
+            var paramDishId = dal.CreateParameter("@DishId", DishId);
+            return dal.ExecuteQuery("GET_DETAILS_OF_DISH", paramDishId);
         }
         private string createID()
         {

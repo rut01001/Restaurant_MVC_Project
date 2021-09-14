@@ -33,11 +33,21 @@ namespace uniqe_web
             services.AddTransient<IDAL, DAL>();
             services.AddTransient<Imenu, MenuService>();
             services.AddSingleton<IUserService, UserService>();
+
+            ///
+            services.AddMvc();
+            services.AddSession(options => {
+                options.IdleTimeout = TimeSpan.FromMinutes(60);
+            });
+            ///
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            ///
+            app.UseSession();
+            ///
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

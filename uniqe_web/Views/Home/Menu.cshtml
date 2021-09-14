@@ -1,4 +1,6 @@
-﻿@using System.Data
+﻿
+@model uniqe_web.Models.ModelData
+@using System.Data
 @{
     ViewBag.Title = "Menu";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -22,11 +24,11 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="formDetails" action="@Url.Action("AddDish", "Home")" method="post">
+                    <form id="formDetails">
                         <label> שם מנה:</label><br>
                         <input type="text" id="nameDish" name="NameDish" placeholder="הקלד שם מנה"><br>
                         <label> מחיר מנה:</label><br>
-                        <input type="number" id="priceDish" name="PriceDish"><br>
+                        <input type="number" step="any" id="priceDish" name="PriceDish"><br>
                         <label> האם מכיל חומרים אלרגנים:</label><br>
                         <input type="checkbox" id="allergyDish" name="AllergyDish"><br>
 
@@ -50,17 +52,18 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="formDetailsEdit" action="@Url.Action("EditDish", "Home")" method="post">
+                    <form id="formDetailsEdit">
                         <label> שם מנה:</label><br>
-                        <input type="text" id="nameDish" name="NameDish" placeholder="הקלד שם מנה"><br>
+                        <input type="text" id="nameDishEdit" name="NameDish" value=""><br>
+                        
                         <label> מחיר מנה:</label><br>
-                        <input type="number" id="priceDish" name="PriceDish"><br>
+                        <input type="number" step="any" id="priceDishEdit" name="PriceDish"><br>
                         <label> האם מכיל חומרים אלרגנים:</label><br>
-                        <input type="checkbox" id="allergyDish" name="AllergyDish"><br>
+                        <input type="checkbox" id="allergyDishEdit" name="AllergyDish"><br>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" form="formDetailsEdit" class="btn btn-primary" onclick="ShowDishes(1, false)">שמור</button>
+                    <button type="submit" form="formDetailsEdit" class="btn btn-primary">שמור</button>
                 </div>
             </div>
         </div>

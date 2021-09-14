@@ -12,5 +12,6 @@ namespace RestaurantContracts
         public void InsertDish(string NameDish, int PriceDish, bool IsAllergyDish, int CategoryId);
         public void deleteDish(string dishId);
         public void EditDish(string NameDish, float PriceDish, bool AllergyDish, string DishId);
+        public DataSet GetDetailsOfDish(string Dish);
     }
 }
